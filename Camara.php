@@ -2,37 +2,46 @@
 
 require_once "Producto.php";
 
+enum TipoDeCamara : string{
+    case COMPACTA = 'Compacta';
+    case PUENTE = 'Puente';
+    case LENTE_DESMONTABLE = 'Lente Desmontable';
+}
+
 class Camara extends Producto{
 
-    private $pixels;
+    private int $pixels;
+    private TipoDeCamara $tipo;
+    private ?Objetivo $objetivo;
 
-    public function __construct(string $marca, string $modelo, float $precio, float $valoracion, int $pixels){
-       parent::__construct($marca, $modelo, $precio, $valoracion);
+
+    public function __construct(string $marca, string $modelo, float $precio, float $valoracion, int $pixels, TipoDeCamara $tipo, ?Objetivo $objetivo = null) {
+        parent::__construct($marca, $modelo, $precio, $valoracion);
         $this->pixels = $pixels;
+        $this->tipo = $tipo;
+        
+        if ($objetivo !== null && $this->llevaObjetivo()) {
+            $this->objetivo = $objetivo;
+        } else if ($objetivo !== null && !$this->llevaObjetivo()) {
+            throw new InvalidArgumentException("Este tipo de cámara no soporta un objetivo.");
+        } else {
+            $this->objetivo = null;
+        }
     }
 
     public function getDatos(){
         return parent::getDatos() . ", Pixels: $this->pixels";
     }
 
-    public function getMarca(){
-        return $this->marca;
-    }
-
-    public function getModelo(){
-        return $this->modelo;
-    }
-
-    public function getPrecio(){
-        return $this->precio;
-    }
-
-    public function getValoracion(){
-        return $this->valoracion;
-    }
-
     public function getPixels(){
         return $this->pixels;
+    }
+
+    public function llevaObjetivo(){
+        if ($this->tipo === TipoDeCamara::LENTE_DESMONTABLE) {
+            return true;
+        }
+        return false;
     }
 }
 
