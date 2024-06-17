@@ -45,7 +45,7 @@ class Camara extends Producto{
         }, $this->objetivos));
         }
 
-        return "Cámara: {$this->marca} {$this->modelo}, Puntuación: {$this->puntuacion}, Precio: {$this->precio}, Pixels: {$this->pixels}, Tipo: {$this->tipoDeCamara->value}, Objetivos: [{$objetivosStr->getModelo()}]";
+        return "Cámara: {$this->marca} {$this->modelo}, Puntuación: {$this->puntuacion}, Precio: {$this->precio}, Pixels: {$this->pixels}, Tipo: {$this->tipoDeCamara->value}, Objetivos: [{$objetivosStr}]";
     }
 
     public function addObjetivo(Objetivo $objetivo){
