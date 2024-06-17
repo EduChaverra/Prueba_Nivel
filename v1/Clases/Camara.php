@@ -12,7 +12,7 @@ class Camara extends Producto{
 
     private int $pixels;
     private TipoDeCamara $tipo;
-    private ?Objetivo $objetivo;
+    private Objetivo $objetivo;
 
 
     public function __construct(string $marca, string $modelo, float $precio, float $valoracion, int $pixels, TipoDeCamara $tipo, ?Objetivo $objetivo = null) {
